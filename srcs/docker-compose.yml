@@ -1,0 +1,59 @@
+
+services:
+  nginx:
+    build: ./requirements/nginx
+    image: nginx:inception-42
+    container_name: nginx
+    ports:
+      - "443:443"
+    volumes:
+      - wp_files:/var/www/html:ro
+    depends_on:
+      - wordpress
+    restart: always
+    networks:
+      - 42-inception-network
+    env_file:
+      - ./.env
+    extra_hosts:
+      - "kishizu.42.fr:127.0.0.1"
+
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress:inception-42
+    container_name: wordpress
+    volumes:
+      - wp_files:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress_password
+      WORDPRESS_DB_NAME: wordpress
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - 42-inception-network
+    env_file:
+      - ./.env
+  
+
+  db:
+    build: ./requirements/mariadb
+    image: mariadb:inception-42
+    container_name: mariadb
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    networks:
+      - 42-inception-network
+    env_file:
+      - ./.env
+  
+
+volumes:
+  db_data:
+  wp_files:
+
+networks:
+  42-inception-network:
