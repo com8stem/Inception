@@ -10,6 +10,6 @@ down:
 restart: down up
 
 clean:
-	docker-compose down -v --rmi local
+	docker-compose -f srcs/docker-compose.yml down -v --rmi local
 
 .PHONY: build up down restart clean
