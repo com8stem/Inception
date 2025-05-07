@@ -4,7 +4,6 @@ cd /var/www/html
 
 rm -rf ./*
 
-# Download WordPress
 curl -o wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 ./wp-cli.phar core download --allow-root
