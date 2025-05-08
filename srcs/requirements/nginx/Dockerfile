@@ -21,7 +21,7 @@ RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 EXPOSE 443
 
-# ENTRYPOINT ["/usr/bin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 # NGINX をフォアグラウンドで実行
 CMD ["nginx", "-g", "daemon off;"]

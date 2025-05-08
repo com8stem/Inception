@@ -16,4 +16,4 @@ chmod +x wp-cli.phar
 ./wp-cli.phar core install --url=kishizu.42.fr --title=inception --admin_user=admin --admin_password=admin --admin_email=admin@admin.com --allow-root --skip-email
 
 chown -R www-data:www-data /var/www/html
-php-fpm8.2 -F
+exec php-fpm8.2 -F
