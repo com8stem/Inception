@@ -15,8 +15,6 @@ services:
       - 42-inception-network
     env_file:
       - ./.env
-    extra_hosts:
-      - "kishizu.42.fr:127.0.0.1"
 
   wordpress:
     build: ./requirements/wordpress
@@ -31,7 +29,6 @@ services:
       - 42-inception-network
     env_file:
       - ./.env
-  
 
   mariadb:
     build: ./requirements/mariadb
@@ -44,11 +41,20 @@ services:
       - 42-inception-network
     env_file:
       - ./.env
-  
 
 volumes:
   wp_files:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/$(whoami)/data
+      o: bind
   db_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/$(whoami)/data
+      o: bind
 
 networks:
   42-inception-network:

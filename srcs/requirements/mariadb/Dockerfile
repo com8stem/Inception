@@ -3,7 +3,6 @@ FROM debian:latest
 RUN apt update && apt upgrade -y && \
     apt install -y mariadb-server tini
 
-# 対話的なプロンプトを無効にする
 ENV DEBIAN_FRONTEND=noninteractive
 
 COPY 50-server.cnf /etc/mysql/mariadb.conf.d/.
