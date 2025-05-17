@@ -13,7 +13,7 @@ chmod +x wp-cli.phar
 ./wp-cli.phar config set DISALLOW_FILE_MODS false --allow-root
 ./wp-cli.phar config set FS_METHOD direct --allow-root
 
-./wp-cli.phar core install --url=kishizu.42.fr --title=inception --admin_user=admin --admin_password=admin --admin_email=admin@admin.com --allow-root --skip-email
+./wp-cli.phar core install --url=DOMAIN_NAME --title=inception --admin_user=WORDPRESS_ADMIN_USER --admin_password=WORDPRESS_ADMIN_PASSWORD --admin_email=admin@admin.com --allow-root --skip-email
 
 chown -R www-data:www-data /var/www/html
 exec php-fpm8.2 -F
