@@ -3,6 +3,7 @@ services:
     build: ./requirements/nginx
     image: nginx
     container_name: nginx
+    init: true
     ports:
       - "443:443"
     volumes:
@@ -20,6 +21,7 @@ services:
     build: ./requirements/wordpress
     image: wordpress
     container_name: wordpress
+    init: true
     volumes:
       - wp_files:/var/www/html
     depends_on:
@@ -34,6 +36,7 @@ services:
     build: ./requirements/mariadb
     image: mariadb
     container_name: mariadb
+    init: true
     restart: always
     volumes:
       - db_data:/var/lib/mysql

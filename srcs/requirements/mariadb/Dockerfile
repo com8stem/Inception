@@ -1,7 +1,7 @@
 FROM debian:latest
 
 RUN apt update && apt upgrade -y && \
-    apt install -y mariadb-server tini
+    apt install -y mariadb-server
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -13,5 +13,4 @@ RUN mkdir /run/mysqld && chmod +x script.sh
 
 EXPOSE 3306
 
-ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "./script.sh" ]
