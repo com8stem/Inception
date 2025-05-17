@@ -8,6 +8,7 @@ curl -o wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/pha
 chmod +x wp-cli.phar
 ./wp-cli.phar core download --allow-root
 ./wp-cli.phar config create --dbname=wordpress --dbuser="$WORDPRESS_DB_USER" --dbpass="$WORDPRESS_DB_PASSWORD" --dbhost=mariadb --allow-root
+./wp-cli.phar config create --dbname=wordpress --dbuser="$WORDPRESS_DB_USER2" --dbpass="$WORDPRESS_DB_PASSWORD2" --dbhost=mariadb --allow-root
 
 ./wp-cli.phar config set DISALLOW_FILE_EDIT false --allow-root
 ./wp-cli.phar config set DISALLOW_FILE_MODS false --allow-root
