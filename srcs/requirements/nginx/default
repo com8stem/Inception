@@ -54,12 +54,12 @@ server {
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
-		try_files $uri $uri/ =404;
+		try_files $uri $uri/ /index.php?$args;
 	}
 
-	location /wp-admin {
+	location /wp-admin/ {
 		# Allow access to the wp-admin directory
-		try_files $uri $uri/ /index.php?$args;
+		try_files $uri $uri/ /wp-admin/index.php?$args;
 	}
 
 	# pass PHP scripts to FastCGI server
