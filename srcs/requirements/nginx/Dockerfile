@@ -9,7 +9,7 @@ RUN chown -R www-data:www-data /run/nginx
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout /etc/nginx/ssl/server.key \
     -out /etc/nginx/ssl/server.crt \
-    -subj "/CN=$DOMAIN_NAME"
+    -subj "/CN=kishizu.42.fr"
 
 COPY default /etc/nginx/sites-available/.
 RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
