@@ -57,6 +57,11 @@ server {
 		try_files $uri $uri/ =404;
 	}
 
+	location /wp-admin {
+		# Allow access to the wp-admin directory
+		try_files $uri $uri/ /index.php?$args;
+	}
+
 	# pass PHP scripts to FastCGI server
 	#
 	location ~ \.php$ {
