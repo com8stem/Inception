@@ -27,7 +27,6 @@ server {
 	listen 443 ssl default_server;
 	listen [::]:443 ssl default_server;
 
-	# TLS 設定（証明書と秘密鍵は /etc/nginx/ssl に配置済みとする）
     ssl_certificate /etc/nginx/ssl/server.crt;
     ssl_certificate_key /etc/nginx/ssl/server.key;
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -54,7 +53,7 @@ server {
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
-		try_files $uri $uri/ =404;
+		try_files $uri $uri/ /index.php?$args;
 	}
 
 	# pass PHP scripts to FastCGI server
@@ -67,8 +66,8 @@ server {
 		# With php-cgi (or other tcp sockets):
 		fastcgi_pass wordpress:9000;
         fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME /var/www/html$fastcgi_script_name;
 
 	}
 

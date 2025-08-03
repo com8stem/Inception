@@ -1,15 +1,15 @@
 services:
   nginx:
-    build: ./requirements/nginx
     image: nginx
+    build: ./requirements/nginx
     container_name: nginx
+    init : true
     ports:
       - "443:443"
     volumes:
-      - wp_files:/var/www/html:ro
+      - wp_data:/var/www/html
     depends_on:
       - wordpress
-      - mariadb
     restart: always
     networks:
       - 42-inception-network
@@ -17,11 +17,12 @@ services:
       - ./.env
 
   wordpress:
-    build: ./requirements/wordpress
     image: wordpress
+    build: ./requirements/wordpress
     container_name: wordpress
+    init : true
     volumes:
-      - wp_files:/var/www/html
+      - wp_data:/var/www/html
     depends_on:
       - mariadb
     restart: always
@@ -31,9 +32,10 @@ services:
       - ./.env
 
   mariadb:
-    build: ./requirements/mariadb
     image: mariadb
+    build: ./requirements/mariadb
     container_name: mariadb
+    init : true
     restart: always
     volumes:
       - db_data:/var/lib/mysql
@@ -43,17 +45,17 @@ services:
       - ./.env
 
 volumes:
-  wp_files:
+  wp_data:
     driver: local
     driver_opts:
       type: none
-      device: /home/$(whoami)/data/wordpress
+      device: /home/kishizu/data/wordpress
       o: bind
   db_data:
     driver: local
     driver_opts:
       type: none
-      device: /home/$(whoami)/data/mariadb
+      device: /home/kishizu/data/mariadb
       o: bind
 
 networks:

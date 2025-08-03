@@ -1,19 +1,24 @@
 #!/bin/bash
 
-cd /var/www/html
+sleep 10
 
-rm -rf ./*
+if [ ! -s wp-config.php ]; then
+	wp --allow-root core download
+	wp --allow-root config create \
+		--dbname=${DB_NAME} \
+		--dbuser=${DB_USER} \
+		--dbpass=${DB_PASSWORD} \
+		--dbhost=mariadb
+	wp --allow-root core install \
+		--url=${DOMAIN_NAME} \
+		--title=inception \
+		--admin_user=${ADMIN_USER} \
+		--admin_password=${ADMIN_PASSWORD} \
+		--admin_email=${ADMIN_EMAIL}
+	wp --allow-root user create \
+		${WP_USER} \
+		${WP_EMAIL} \
+		--user_pass=${WP_PASSWORD}
+fi
 
-curl -o wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-chmod +x wp-cli.phar
-./wp-cli.phar core download --allow-root
-./wp-cli.phar config create --dbname=wordpress --dbuser="$WORDPRESS_DB_USER" --dbpass="$WORDPRESS_DB_PASSWORD" --dbhost=mariadb --allow-root
-
-./wp-cli.phar config set DISALLOW_FILE_EDIT false --allow-root
-./wp-cli.phar config set DISALLOW_FILE_MODS false --allow-root
-./wp-cli.phar config set FS_METHOD direct --allow-root
-
-./wp-cli.phar core install --url=kishizu.42.fr --title=inception --admin_user=admin --admin_password=admin --admin_email=admin@admin.com --allow-root --skip-email
-
-chown -R www-data:www-data /var/www/html
-exec php-fpm8.2 -F
+exec "php-fpm8.2" -F
