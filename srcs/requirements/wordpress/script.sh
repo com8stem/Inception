@@ -21,4 +21,4 @@ if [ ! -s wp-config.php ]; then
 		--user_pass=${WP_PASSWORD}
 fi
 
-exec "php-fpm8.2" -F
+exec "php-fpm7.4" -F
