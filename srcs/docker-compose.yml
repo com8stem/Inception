@@ -1,7 +1,10 @@
 services:
   nginx:
     image: nginx
-    build: ./requirements/nginx
+    build:
+      context: ./requirements/nginx
+      args:
+        DOMAIN_NAME: ${DOMAIN_NAME}
     container_name: nginx
     init : true
     ports:
